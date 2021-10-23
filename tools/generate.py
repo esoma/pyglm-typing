@@ -3,9 +3,12 @@
 from arraystub import generate_array_stub
 from ctypesstub import generate_ctypes_stub
 from funccommonstub import generate_func_common_stub
-from matrixstub import generate_matrix_stub, generate_matrix_unions
+from matrixstub import (generate_matrix_stub, generate_matrix_typevars,
+                        generate_matrix_unions)
 from matrixtype import get_matrix_types
-from quaternionstub import generate_quaternion_stub, generate_quaternion_unions
+from quaternionstub import (generate_quaternion_stub,
+                            generate_quaternion_typevars,
+                            generate_quaternion_unions)
 from quaterniontype import get_quaternion_types
 from stub import union
 from vectorstub import (generate_vector_stub, generate_vector_typevars,
@@ -36,7 +39,9 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
 
     f.write('_T = TypeVar(\'_T\')\n')
     f.write(generate_vector_typevars())
-    f.write('\n\n')
+    f.write(generate_matrix_typevars())
+    f.write(generate_quaternion_typevars())
+    f.write('\n')
 
     add_stub(f, names, generate_ctypes_stub)
     for name in get_vector_types():

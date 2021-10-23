@@ -1,5 +1,9 @@
 
-__all__ = ['generate_matrix_stub', 'generate_matrix_unions']
+__all__ = [
+    'generate_matrix_stub',
+    'generate_matrix_typevars',
+    'generate_matrix_unions'
+]
 
 import textwrap
 from itertools import product
@@ -50,6 +54,21 @@ def generate_matrix_unions():
         else:
             tuples = [_matrix_tuple(rows, columns)]
         yield union_name, f'''{union_name} = {union([*matrices, *tuples])}'''
+
+
+def generate_matrix_typevars():
+    typevars = [
+        ('_M2X2T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 2)),
+        ('_M2X3T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 3)),
+        ('_M2X4T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 4)),
+        ('_M3X2T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 2)),
+        ('_M3X3T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 3)),
+        ('_M3X4T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 4)),
+        ('_M4X2T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 2)),
+        ('_M4X3T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 3)),
+        ('_M4X4T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 4)),
+    ]
+    return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
 
 
 def generate_matrix_stub(name):

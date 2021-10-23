@@ -1,5 +1,9 @@
 
-__all__ = ['generate_matrix_stub', 'generate_matrix_unions']
+__all__ = [
+    'generate_quaternion_stub',
+    'generate_quaternion_typevars',
+    'generate_quaternion_unions'
+]
 
 import textwrap
 from itertools import product
@@ -33,6 +37,13 @@ def generate_quaternion_unions():
         tuples = [_quaternion_tuple()]
         yield union_name, f'''{union_name} = {union([*quaternions, *tuples])}'''
     yield 'FDAnyQuaternion', f'''FDAnyQuaternion = {union(['FAnyQuaternion', 'DAnyQuaternion'])}'''
+
+
+def generate_quaternion_typevars():
+    typevars = [
+        ('_QT', get_quaternion_types()),
+    ]
+    return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
 
 
 def generate_quaternion_stub(name):

@@ -54,8 +54,13 @@ def generate_vector_unions():
 def generate_vector_typevars():
     typevars = [
         ('_VT', get_vector_types()),
+        ('_FDVT', get_vector_types(lambda v: v.data_type in 'df')),
+        ('_V1T', get_vector_types(lambda v: v.size == 1)),
+        ('_V2T', get_vector_types(lambda v: v.size == 2)),
+        ('_V3T', get_vector_types(lambda v: v.size == 3)),
+        ('_V4T', get_vector_types(lambda v: v.size == 4)),
     ]
-    return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars)
+    return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
 
 
 def generate_vector_stub(name):
