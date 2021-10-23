@@ -54,11 +54,12 @@ def generate_vector_unions():
 def generate_vector_typevars():
     typevars = [
         ('_VT', get_vector_types()),
+        ('_NF32VT', get_vector_types(lambda v: not (v.data_type == 'f' and v.data_size == 32))),
         ('_FDVT', get_vector_types(lambda v: v.data_type in 'df')),
-        ('_V1T', get_vector_types(lambda v: v.size == 1)),
-        ('_V2T', get_vector_types(lambda v: v.size == 2)),
-        ('_V3T', get_vector_types(lambda v: v.size == 3)),
-        ('_V4T', get_vector_types(lambda v: v.size == 4)),
+        ('_NF32V1T', get_vector_types(lambda v: v.size == 1 and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32V2T', get_vector_types(lambda v: v.size == 2 and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32V3T', get_vector_types(lambda v: v.size == 3 and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32V4T', get_vector_types(lambda v: v.size == 4 and not (v.data_type == 'f' and v.data_size == 32))),
     ]
     return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
 

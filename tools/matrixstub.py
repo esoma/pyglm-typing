@@ -58,15 +58,15 @@ def generate_matrix_unions():
 
 def generate_matrix_typevars():
     typevars = [
-        ('_M2X2T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 2)),
-        ('_M2X3T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 3)),
-        ('_M2X4T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 4)),
-        ('_M3X2T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 2)),
-        ('_M3X3T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 3)),
-        ('_M3X4T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 4)),
-        ('_M4X2T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 2)),
-        ('_M4X3T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 3)),
-        ('_M4X4T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 4)),
+        ('_NF32M2X2T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 2 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M2X3T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 3 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M2X4T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 4 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M3X2T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 2 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M3X3T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 3 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M3X4T', get_matrix_types(lambda m: m.rows == 3 and m.columns == 4 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M4X2T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 2 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M4X3T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 3 and not (m.data_type == 'f' and m.data_size == 32))),
+        ('_NF32M4X4T', get_matrix_types(lambda m: m.rows == 4 and m.columns == 4 and not (m.data_type == 'f' and m.data_size == 32))),
     ]
     return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
 
