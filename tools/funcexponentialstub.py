@@ -51,9 +51,9 @@ def generate_func_exponential_stub():
     @overload
     def pow(base: glm_typing.Number, exponent: glm_typing.Number, /) -> float: ...{''.join(f'''
     @overload
-    def pow(base: {vector_tuple(i)}, exponent: {vector_tuple(i)}, /) -> vec{i}: ...''' for i in range(1, 5))}
+    def pow(base: glm_typing.F32Vector{i}, exponent: glm_typing.F32Vector{i}, /) -> vec{i}: ...''' for i in range(1, 5))}
     @overload
-    def pow(base: _FDVT, exponent: _FDVT, /) -> _FDVT: ...
+    def pow(base: _NF32DFVT, exponent: _NF32DFVT, /) -> _NF32DFVT: ...
     @overload
     def pow(base: _QT, exponent: _QT, /) -> _QT: ...
 

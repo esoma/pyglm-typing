@@ -4,6 +4,7 @@ from arraystub import generate_array_stub
 from ctypesstub import generate_ctypes_stub
 from funccommonstub import generate_func_common_stub
 from funcexponentialstub import generate_func_exponential_stub
+from funcgeometricstub import generate_func_geometric_stub
 from matrixstub import (generate_matrix_stub, generate_matrix_typevars,
                         generate_matrix_unions)
 from matrixtype import get_matrix_types
@@ -54,6 +55,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_array_stub)
     add_stub(generate_func_common_stub)
     add_stub(generate_func_exponential_stub)
+    add_stub(generate_func_geometric_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 

@@ -45,6 +45,7 @@ def generate_vector_unions():
         else:
             tuples = [vector_tuple(size, prefix=None)]
         yield union_name, f'''{union_name} = {union([*vectors, *tuples])}'''
+    yield 'FDAnyVectorAny', f'''FDAnyVectorAny = {union(['FAnyVectorAny', 'DAnyVectorAny'])}'''
     yield 'FDAnyVector1', f'''FDAnyVector1 = {union(['FAnyVector1', 'DAnyVector1'])}'''
     yield 'FDAnyVector2', f'''FDAnyVector2 = {union(['FAnyVector2', 'DAnyVector2'])}'''
     yield 'FDAnyVector3', f'''FDAnyVector3 = {union(['FAnyVector3', 'DAnyVector3'])}'''
@@ -56,6 +57,8 @@ def generate_vector_typevars():
         ('_VT', get_vector_types()),
         ('_NF32VT', get_vector_types(lambda v: not (v.data_type == 'f' and v.data_size == 32))),
         ('_FDVT', get_vector_types(lambda v: v.data_type in 'df')),
+        ('_NF32DFVT', get_vector_types(lambda v: v.data_type in 'df' and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32DFV3T', get_vector_types(lambda v: v.data_type in 'df' and v.size == 3 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32V1T', get_vector_types(lambda v: v.size == 1 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32V2T', get_vector_types(lambda v: v.size == 2 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32V3T', get_vector_types(lambda v: v.size == 3 and not (v.data_type == 'f' and v.data_size == 32))),
