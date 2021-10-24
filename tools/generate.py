@@ -25,6 +25,7 @@ from quaternionstub import generate_quaternion_stub
 from quaterniontype import get_quaternion_types
 from quatstub import (generate_quat_stub, generate_quat_typevars,
                       generate_quat_unions)
+from randomstub import generate_random_stub
 from stub import union
 from vecstub import (generate_vec_stub, generate_vec_typevars,
                      generate_vec_unions)
@@ -84,6 +85,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_noise_stub)
     add_stub(generate_packing_stub)
     add_stub(generate_quaternion_stub)
+    add_stub(generate_random_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
