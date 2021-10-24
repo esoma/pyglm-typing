@@ -18,6 +18,7 @@ from matrixinversestub import generate_matrix_inverse_stub
 from matrixstub import (generate_matrix_stub, generate_matrix_typevars,
                         generate_matrix_unions)
 from matrixtype import get_matrix_types
+from noisestub import generate_noise_stub
 from otherstub import generate_other_stub
 from quaternionstub import (generate_quaternion_stub,
                             generate_quaternion_typevars,
@@ -79,6 +80,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_integer_stub)
     add_stub(generate_matrix_access_stub)
     add_stub(generate_matrix_inverse_stub)
+    add_stub(generate_noise_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
