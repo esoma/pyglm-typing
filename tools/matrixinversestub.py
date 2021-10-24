@@ -1,0 +1,33 @@
+
+__all__ = ['generate_matrix_inverse_stub']
+
+import textwrap
+
+
+def generate_matrix_inverse_stub():
+    names = [
+        'affineInverse', 'inverseTranspose',
+    ]
+    return names, textwrap.dedent(f"""
+    @overload
+    def affineInverse(m: glm_typing.FAnyMatrix3x3, /) -> mat3x3: ...
+    @overload
+    def affineInverse(m: dmat3x3, /) -> dmat3x3: ...
+    @overload
+    def affineInverse(m: glm_typing.FAnyMatrix4x4, /) -> mat4x4: ...
+    @overload
+    def affineInverse(m: dmat4x4, /) -> dmat4x4: ...
+
+    @overload
+    def inverseTranspose(m: glm_typing.FAnyMatrix2x2, /) -> mat2x2: ...
+    @overload
+    def inverseTranspose(m: dmat2x2, /) -> dmat2x2: ...
+    @overload
+    def inverseTranspose(m: glm_typing.FAnyMatrix3x3, /) -> mat3x3: ...
+    @overload
+    def inverseTranspose(m: dmat3x3, /) -> dmat3x3: ...
+    @overload
+    def inverseTranspose(m: glm_typing.FAnyMatrix4x4, /) -> mat4x4: ...
+    @overload
+    def inverseTranspose(m: dmat4x4, /) -> dmat4x4: ...
+    """)
