@@ -62,7 +62,10 @@ def generate_vector_typevars():
         ('_NF32VT', get_vector_types(lambda v: not (v.data_type == 'f' and v.data_size == 32))),
         ('_FDVT', get_vector_types(lambda v: v.data_type in 'df')),
         ('_NF32DFVT', get_vector_types(lambda v: v.data_type in 'df' and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32DFV1T', get_vector_types(lambda v: v.data_type in 'df' and v.size == 1 and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32DFV2T', get_vector_types(lambda v: v.data_type in 'df' and v.size == 2 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32DFV3T', get_vector_types(lambda v: v.data_type in 'df' and v.size == 3 and not (v.data_type == 'f' and v.data_size == 32))),
+        ('_NF32DFV4T', get_vector_types(lambda v: v.data_type in 'df' and v.size == 4 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32V1T', get_vector_types(lambda v: v.size == 1 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32V2T', get_vector_types(lambda v: v.size == 2 and not (v.data_type == 'f' and v.data_size == 32))),
         ('_NF32V3T', get_vector_types(lambda v: v.size == 3 and not (v.data_type == 'f' and v.data_size == 32))),
@@ -71,7 +74,11 @@ def generate_vector_typevars():
         ('_UVT', get_vector_types(lambda v: v.data_type in 'u')),
         ('_NI32IUVT', get_vector_types(lambda v: v.data_type in 'iu' and not (v.data_type == 'i' and v.data_size == 32))),
     ]
-    return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
+    return '\n'.join(
+        f'''{name} = TypeVar('{name}', {', '.join(types) if len(types) > 1 else f'bound={types[0]}'})'''
+        for name, types in
+        ((n, list(ts)) for n, ts in typevars)
+    ) + '\n'
 
 
 def generate_vector_stub(name):
