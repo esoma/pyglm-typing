@@ -73,6 +73,10 @@ def generate_vector_typevars():
         ('_IVT', get_vector_types(lambda v: v.data_type in 'i')),
         ('_UVT', get_vector_types(lambda v: v.data_type in 'u')),
         ('_NI32IUVT', get_vector_types(lambda v: v.data_type in 'iu' and not (v.data_type == 'i' and v.data_size == 32))),
+        ('_NI32IUV1T', get_vector_types(lambda v: v.data_type in 'iu' and v.size == 1 and not (v.data_type == 'i' and v.data_size == 32))),
+        ('_NI32IUV2T', get_vector_types(lambda v: v.data_type in 'iu' and v.size == 2 and not (v.data_type == 'i' and v.data_size == 32))),
+        ('_NI32IUV3T', get_vector_types(lambda v: v.data_type in 'iu' and v.size == 3 and not (v.data_type == 'i' and v.data_size == 32))),
+        ('_NI32IUV4T', get_vector_types(lambda v: v.data_type in 'iu' and v.size == 4 and not (v.data_type == 'i' and v.data_size == 32))),
     ]
     return '\n'.join(
         f'''{name} = TypeVar('{name}', {', '.join(types) if len(types) > 1 else f'bound={types[0]}'})'''
