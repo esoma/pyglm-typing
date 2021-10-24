@@ -30,6 +30,7 @@ from reciprocalstub import generate_reciprocal_stub
 from roundstub import generate_round_stub
 from stub import union
 from typeptrstub import generate_type_ptr_stub
+from ulpstub import generate_ulp_stub
 from vecstub import (generate_vec_stub, generate_vec_typevars,
                      generate_vec_unions)
 from vectortype import get_vector_types
@@ -92,6 +93,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_reciprocal_stub)
     add_stub(generate_round_stub)
     add_stub(generate_type_ptr_stub)
+    add_stub(generate_ulp_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
