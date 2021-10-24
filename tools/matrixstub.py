@@ -54,10 +54,12 @@ def generate_matrix_unions():
         else:
             tuples = [_matrix_tuple(rows, columns)]
         yield union_name, f'''{union_name} = {union([*matrices, *tuples])}'''
+    yield 'AnyAnyMatrixSquare', f'''AnyAnyMatrixSquare = {union(['AnyAnyMatrix2x2', 'AnyAnyMatrix3x3', 'AnyAnyMatrix4x4'])}'''
 
 
 def generate_matrix_typevars():
     typevars = [
+        ('_NF32FDMSQRT', get_matrix_types(lambda m: m.rows == m.columns and m.data_type in 'fd' and not (m.data_type == 'f' and m.data_size == 32))),
         ('_NF32M2X2T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 2 and not (m.data_type == 'f' and m.data_size == 32))),
         ('_NF32M2X3T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 3 and not (m.data_type == 'f' and m.data_size == 32))),
         ('_NF32M2X4T', get_matrix_types(lambda m: m.rows == 2 and m.columns == 4 and not (m.data_type == 'f' and m.data_size == 32))),
