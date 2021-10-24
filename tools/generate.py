@@ -13,6 +13,7 @@ from funcvectorrelationalstub import generate_func_vector_relational_stub
 from matrixstub import (generate_matrix_stub, generate_matrix_typevars,
                         generate_matrix_unions)
 from matrixtype import get_matrix_types
+from otherstub import generate_other_stub
 from quaternionstub import (generate_quaternion_stub,
                             generate_quaternion_typevars,
                             generate_quaternion_unions)
@@ -66,6 +67,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_func_packing_stub)
     add_stub(generate_func_trigonometric_stub)
     add_stub(generate_func_vector_relational_stub)
+    add_stub(generate_other_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
