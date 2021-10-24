@@ -14,6 +14,7 @@ from functrigonometricstub import generate_func_trigonometric_stub
 from funcvectorrelationalstub import generate_func_vector_relational_stub
 from integerstub import generate_integer_stub
 from matrixaccessstub import generate_matrix_access_stub
+from matrixclipspacestub import generate_matrix_clip_space_stub
 from matrixinversestub import generate_matrix_inverse_stub
 from matrixtype import get_matrix_types
 from matstub import (generate_mat_stub, generate_mat_typevars,
@@ -94,6 +95,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_round_stub)
     add_stub(generate_type_ptr_stub)
     add_stub(generate_ulp_stub)
+    add_stub(generate_matrix_clip_space_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
