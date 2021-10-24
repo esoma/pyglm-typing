@@ -1,8 +1,8 @@
 
 __all__ = [
-    'generate_matrix_stub',
-    'generate_matrix_typevars',
-    'generate_matrix_unions'
+    'generate_mat_stub',
+    'generate_mat_typevars',
+    'generate_mat_unions'
 ]
 
 import textwrap
@@ -12,7 +12,7 @@ from matrixtype import get_matrix_types, inspect_matrix
 from stub import matrix_name, matrix_union, union, vector_name, vector_union
 
 
-def generate_matrix_unions():
+def generate_mat_unions():
     for data_type, data_size, rows, columns in product(
         ['d', 'f', 'i', 'u', None],
         [8, 16, 32, 64, None],
@@ -57,7 +57,7 @@ def generate_matrix_unions():
     yield 'AnyAnyMatrixSquare', f'''AnyAnyMatrixSquare = {union(['AnyAnyMatrix2x2', 'AnyAnyMatrix3x3', 'AnyAnyMatrix4x4'])}'''
 
 
-def generate_matrix_typevars():
+def generate_mat_typevars():
     typevars = [
         ('_NF32FDMSQRT', get_matrix_types(lambda m: m.rows == m.columns and m.data_type in 'fd' and not (m.data_type == 'f' and m.data_size == 32))),
         ('_NF32M2XNT', get_matrix_types(lambda m: m.rows == 2 and not (m.data_type == 'f' and m.data_size == 32))),
@@ -76,7 +76,7 @@ def generate_matrix_typevars():
     return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
 
 
-def generate_matrix_stub(name):
+def generate_mat_stub(name):
     matrix = inspect_matrix(name)
     matrxc_union = matrix_union(
         data_type=matrix.data_type,

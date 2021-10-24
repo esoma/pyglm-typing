@@ -1,8 +1,8 @@
 
 __all__ = [
-    'generate_vector_stub',
-    'generate_vector_typevars',
-    'generate_vector_unions',
+    'generate_vec_stub',
+    'generate_vec_typevars',
+    'generate_vec_unions',
     'vector_tuple',
 ]
 
@@ -15,7 +15,7 @@ from vectortype import get_vector_types, inspect_vector
 _COMPONENT_NAMES = ('x', 'y', 'z', 'w')
 
 
-def generate_vector_unions():
+def generate_vec_unions():
     for data_type, data_size, size in product(
         ['b', 'd', 'f', 'i', 'u', None],
         [8, 16, 32, 64, None],
@@ -56,7 +56,7 @@ def generate_vector_unions():
     yield 'IUAnyVector4', f'''IUAnyVector4 = {union(['IAnyVector4', 'UAnyVector4'])}'''
 
 
-def generate_vector_typevars():
+def generate_vec_typevars():
     typevars = [
         ('_VT', get_vector_types()),
         ('_NF32VT', get_vector_types(lambda v: not (v.data_type == 'f' and v.data_size == 32))),
@@ -85,7 +85,7 @@ def generate_vector_typevars():
     ) + '\n'
 
 
-def generate_vector_stub(name):
+def generate_vec_stub(name):
     vector = inspect_vector(name)
     this_vector_union = vector_union(
         data_type=vector.data_type,

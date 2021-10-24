@@ -15,19 +15,19 @@ from funcvectorrelationalstub import generate_func_vector_relational_stub
 from integerstub import generate_integer_stub
 from matrixaccessstub import generate_matrix_access_stub
 from matrixinversestub import generate_matrix_inverse_stub
-from matrixstub import (generate_matrix_stub, generate_matrix_typevars,
-                        generate_matrix_unions)
 from matrixtype import get_matrix_types
+from matstub import (generate_mat_stub, generate_mat_typevars,
+                     generate_mat_unions)
 from noisestub import generate_noise_stub
 from otherstub import generate_other_stub
 from packingstub import generate_packing_stub
-from quaternionstub import (generate_quaternion_stub,
-                            generate_quaternion_typevars,
-                            generate_quaternion_unions)
+from quaternionstub import generate_quaternion_stub
 from quaterniontype import get_quaternion_types
+from quatstub import (generate_quat_stub, generate_quat_typevars,
+                      generate_quat_unions)
 from stub import union
-from vectorstub import (generate_vector_stub, generate_vector_typevars,
-                        generate_vector_unions)
+from vecstub import (generate_vec_stub, generate_vec_typevars,
+                     generate_vec_unions)
 from vectortype import get_vector_types
 
 header = """
@@ -53,18 +53,18 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     f.write('\n')
 
     f.write('_T = TypeVar(\'_T\')\n')
-    f.write(generate_vector_typevars())
-    f.write(generate_matrix_typevars())
-    f.write(generate_quaternion_typevars())
+    f.write(generate_vec_typevars())
+    f.write(generate_mat_typevars())
+    f.write(generate_quat_typevars())
     f.write('\n')
 
     add_stub(generate_ctypes_stub)
     for name in get_vector_types():
-        add_stub(generate_vector_stub, name)
+        add_stub(generate_vec_stub, name)
     for name in get_matrix_types():
-        add_stub(generate_matrix_stub, name)
+        add_stub(generate_mat_stub, name)
     for name in get_quaternion_types():
-        add_stub(generate_quaternion_stub, name)
+        add_stub(generate_quat_stub, name)
     add_stub(generate_array_stub)
     add_stub(generate_func_common_stub)
     add_stub(generate_func_exponential_stub)
@@ -83,6 +83,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_matrix_inverse_stub)
     add_stub(generate_noise_stub)
     add_stub(generate_packing_stub)
+    add_stub(generate_quaternion_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
@@ -96,9 +97,9 @@ with open('src/glm_typing/__init__.py', 'w') as f:
     f.write('Number = Union[SupportsFloat, SupportsInt]\n')
 
     for union_name, union_stub in (
-        *generate_vector_unions(),
-        *generate_matrix_unions(),
-        *generate_quaternion_unions(),
+        *generate_vec_unions(),
+        *generate_mat_unions(),
+        *generate_quat_unions(),
         ('FDAnyQuaternionVector4', f'''FDAnyQuaternionVector4 = {union(['FDAnyVector4', 'FDAnyQuaternion'])}''')
     ):
         names.append(union_name)

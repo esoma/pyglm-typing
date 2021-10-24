@@ -3,7 +3,7 @@ __all__ = ['generate_func_common_stub']
 
 import textwrap
 
-from vectorstub import vector_tuple
+from vecstub import vector_tuple
 
 
 def generate_func_common_stub():
