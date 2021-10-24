@@ -1,5 +1,4 @@
 
-
 from arraystub import generate_array_stub
 from colorspacestub import generate_color_space_stub
 from constantsstub import generate_constants_stub
@@ -14,6 +13,7 @@ from funcpackingstub import generate_func_packing_stub
 from functrigonometricstub import generate_func_trigonometric_stub
 from funcvectorrelationalstub import generate_func_vector_relational_stub
 from integerstub import generate_integer_stub
+from matrixaccessstub import generate_matrix_access_stub
 from matrixstub import (generate_matrix_stub, generate_matrix_typevars,
                         generate_matrix_unions)
 from matrixtype import get_matrix_types
@@ -76,6 +76,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_constants_stub)
     add_stub(generate_epsilon_stub)
     add_stub(generate_integer_stub)
+    add_stub(generate_matrix_access_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
