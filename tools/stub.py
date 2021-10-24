@@ -28,9 +28,11 @@ def matrix_union(
     data_size=None,
     rows=None,
     columns=None,
+    include_tuple=True,
     *,
     prefix='glm_typing.'
 ):
+    name = 'Matrix' if include_tuple else 'Mat'
     if data_type is None:
         if data_size is not None:
             return None
@@ -49,7 +51,7 @@ def matrix_union(
         rows = 'Any'
     if columns is None:
         columns = 'Any'
-    return f'''{prefix}{data_type}{data_size}Matrix{rows}x{columns}'''
+    return f'''{prefix}{data_type}{data_size}{name}{rows}x{columns}'''
 
 def quaternion_name(data_type):
     if data_type == 'f':
@@ -59,9 +61,11 @@ def quaternion_name(data_type):
 def quaternion_union(
     data_type=None,
     data_size=None,
+    include_tuple=True,
     *,
     prefix='glm_typing.'
 ):
+    name = 'Quaternion' if include_tuple else 'Quat'
     if data_type is None:
         if data_size is not None:
             return None
@@ -76,7 +80,7 @@ def quaternion_union(
         data_type = data_type.upper()
     if data_size is None:
         data_size = 'Any'
-    return f'''{prefix}{data_type}{data_size}Quaternion'''
+    return f'''{prefix}{data_type}{data_size}{name}'''
 
 def vector_name(data_type, size, m=False):
     if data_type == 'f':
@@ -88,9 +92,11 @@ def vector_union(
     data_type=None,
     data_size=None,
     size=None,
+    include_tuple=True,
     *,
     prefix='glm_typing.'
 ):
+    name = 'Vector' if include_tuple else 'Vec'
     if data_type is None:
         data_type = 'Any'
     elif data_type not in 'bdfiu':
@@ -101,4 +107,4 @@ def vector_union(
         data_size = 'Any'
     if size is None:
         size = 'Any'
-    return f'''{prefix}{data_type}{data_size}Vector{size}'''
+    return f'''{prefix}{data_type}{data_size}{name}{size}'''

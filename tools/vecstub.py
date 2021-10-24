@@ -16,10 +16,11 @@ _COMPONENT_NAMES = ('x', 'y', 'z', 'w')
 
 
 def generate_vec_unions():
-    for data_type, data_size, size in product(
+    for data_type, data_size, size, include_tuple in product(
         ['b', 'd', 'f', 'i', 'u', None],
         [8, 16, 32, 64, None],
         [1, 2, 3, 4, None],
+        [True, False],
     ):
         def _(vector):
             if data_type is not None and vector.data_type != data_type:
@@ -33,6 +34,7 @@ def generate_vec_unions():
             data_type=data_type,
             data_size=data_size,
             size=size,
+            include_tuple=include_tuple,
             prefix='',
         )
         if union_name is None:
@@ -40,10 +42,13 @@ def generate_vec_unions():
         vectors = [f'glm.{v}' for v in get_vector_types(_)]
         if not vectors:
             continue
-        if size is None:
-            tuples = [vector_tuple(i, prefix=None) for i in range(1, 5)]
+        if include_tuple:
+            if size is None:
+                tuples = [vector_tuple(i, prefix=None) for i in range(1, 5)]
+            else:
+                tuples = [vector_tuple(size, prefix=None)]
         else:
-            tuples = [vector_tuple(size, prefix=None)]
+            tuples = []
         yield union_name, f'''{union_name} = {union([*vectors, *tuples])}'''
     yield 'FDAnyVectorAny', f'''FDAnyVectorAny = {union(['FAnyVectorAny', 'DAnyVectorAny'])}'''
     yield 'FDAnyVector1', f'''FDAnyVector1 = {union(['FAnyVector1', 'DAnyVector1'])}'''

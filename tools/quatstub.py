@@ -14,9 +14,10 @@ from stub import (matrix_union, quaternion_union, union, vector_name,
 
 
 def generate_quat_unions():
-    for data_type, data_size in product(
+    for data_type, data_size, include_tuple in product(
         ['d', 'f', None],
         [8, 16, 32, 64, None],
+        [True, False],
     ):
         def _(quaternion):
             if data_type is not None and quaternion.data_type != data_type:
@@ -27,6 +28,7 @@ def generate_quat_unions():
         union_name = quaternion_union(
             data_type=data_type,
             data_size=data_size,
+            include_tuple=include_tuple,
             prefix=''
         )
         if union_name is None:
@@ -34,7 +36,10 @@ def generate_quat_unions():
         quaternions = [f'glm.{v}' for v in get_quaternion_types(_)]
         if not quaternions:
             continue
-        tuples = [_quaternion_tuple()]
+        if include_tuple:
+            tuples = [_quaternion_tuple()]
+        else:
+            tuples = []
         yield union_name, f'''{union_name} = {union([*quaternions, *tuples])}'''
     yield 'FDAnyQuaternion', f'''FDAnyQuaternion = {union(['FAnyQuaternion', 'DAnyQuaternion'])}'''
 

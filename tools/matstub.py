@@ -13,11 +13,12 @@ from stub import matrix_name, matrix_union, union, vector_name, vector_union
 
 
 def generate_mat_unions():
-    for data_type, data_size, rows, columns in product(
+    for data_type, data_size, rows, columns, include_tuple in product(
         ['d', 'f', 'i', 'u', None],
         [8, 16, 32, 64, None],
         [2, 3, 4, None],
         [2, 3, 4, None],
+        [True, False],
     ):
         def _(matrix):
             if data_type is not None and matrix.data_type != data_type:
@@ -34,6 +35,7 @@ def generate_mat_unions():
             data_size=data_size,
             rows=rows,
             columns=columns,
+            include_tuple=include_tuple,
             prefix='',
         )
         if union_name is None:
@@ -41,18 +43,21 @@ def generate_mat_unions():
         matrices = [f'glm.{v}' for v in get_matrix_types(_)]
         if not matrices:
             continue
-        if rows is None and columns is None:
-            tuples = [
-                _matrix_tuple(r, c)
-                for r in range(2, 5)
-                for c in range(2, 5)
-            ]
-        elif rows is None:
-            tuples = [_matrix_tuple(r, columns) for r in range(2, 5)]
-        elif columns is None:
-            tuples = [_matrix_tuple(rows, c) for c in range(2, 5)]
+        if include_tuple:
+            if rows is None and columns is None:
+                tuples = [
+                    _matrix_tuple(r, c)
+                    for r in range(2, 5)
+                    for c in range(2, 5)
+                ]
+            elif rows is None:
+                tuples = [_matrix_tuple(r, columns) for r in range(2, 5)]
+            elif columns is None:
+                tuples = [_matrix_tuple(rows, c) for c in range(2, 5)]
+            else:
+                tuples = [_matrix_tuple(rows, columns)]
         else:
-            tuples = [_matrix_tuple(rows, columns)]
+            tuples = []
         yield union_name, f'''{union_name} = {union([*matrices, *tuples])}'''
     yield 'AnyAnyMatrixSquare', f'''AnyAnyMatrixSquare = {union(['AnyAnyMatrix2x2', 'AnyAnyMatrix3x3', 'AnyAnyMatrix4x4'])}'''
 
