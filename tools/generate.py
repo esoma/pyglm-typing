@@ -2,6 +2,7 @@
 
 from arraystub import generate_array_stub
 from colorspacestub import generate_color_space_stub
+from constantsstub import generate_constants_stub
 from ctypesstub import generate_ctypes_stub
 from funccommonstub import generate_func_common_stub
 from funcexponentialstub import generate_func_exponential_stub
@@ -70,6 +71,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_func_vector_relational_stub)
     add_stub(generate_other_stub)
     add_stub(generate_color_space_stub)
+    add_stub(generate_constants_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
