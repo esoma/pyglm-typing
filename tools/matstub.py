@@ -64,6 +64,7 @@ def generate_mat_unions():
 
 def generate_mat_typevars():
     typevars = [
+        ('_MT', get_matrix_types()),
         ('_NF32FDMSQRT', get_matrix_types(lambda m: m.rows == m.columns and m.data_type in 'fd' and not (m.data_type == 'f' and m.data_size == 32))),
         ('_NF32M2XNT', get_matrix_types(lambda m: m.rows == 2 and not (m.data_type == 'f' and m.data_size == 32))),
         ('_NF32M3XNT', get_matrix_types(lambda m: m.rows == 3 and not (m.data_type == 'f' and m.data_size == 32))),
