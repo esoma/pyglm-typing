@@ -36,6 +36,7 @@ from quatstub import (generate_quat_stub, generate_quat_typevars,
                       generate_quat_unions)
 from randomstub import generate_random_stub
 from reciprocalstub import generate_reciprocal_stub
+from rotatevectorstub import generate_rotate_vector_stub
 from roundstub import generate_round_stub
 from stub import union
 from typeptrstub import generate_type_ptr_stub
@@ -112,6 +113,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_matrix_transform_2d_stub)
     add_stub(generate_norm_stub)
     add_stub(generate_polar_coordinates_stub)
+    add_stub(generate_rotate_vector_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
