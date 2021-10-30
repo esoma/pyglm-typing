@@ -18,6 +18,7 @@ from matrixaccessstub import generate_matrix_access_stub
 from matrixclipspacestub import generate_matrix_clip_space_stub
 from matrixinversestub import generate_matrix_inverse_stub
 from matrixprojectionstub import generate_matrix_projection_stub
+from matrixtransform2dstub import generate_matrix_transform_2d_stub
 from matrixtransformstub import generate_matrix_transform_stub
 from matrixtype import get_matrix_types
 from matstub import (generate_mat_stub, generate_mat_typevars,
@@ -106,6 +107,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_quaternion_common_stub)
     add_stub(generate_quaternion_trigonometric_stub)
     add_stub(generate_decompose_stub)
+    add_stub(generate_matrix_transform_2d_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
