@@ -27,6 +27,7 @@ from noisestub import generate_noise_stub
 from normstub import generate_norm_stub
 from otherstub import generate_other_stub
 from packingstub import generate_packing_stub
+from polarcoordinatesstub import generate_polar_coordinates_stub
 from quaternioncommonstub import generate_quaternion_common_stub
 from quaternionstub import generate_quaternion_stub
 from quaterniontrigonometricstub import generate_quaternion_trigonometric_stub
@@ -110,6 +111,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_decompose_stub)
     add_stub(generate_matrix_transform_2d_stub)
     add_stub(generate_norm_stub)
+    add_stub(generate_polar_coordinates_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
