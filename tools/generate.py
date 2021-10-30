@@ -26,6 +26,7 @@ from otherstub import generate_other_stub
 from packingstub import generate_packing_stub
 from quaternioncommonstub import generate_quaternion_common_stub
 from quaternionstub import generate_quaternion_stub
+from quaterniontrigonometricstub import generate_quaternion_trigonometric_stub
 from quaterniontype import get_quaternion_types
 from quatstub import (generate_quat_stub, generate_quat_typevars,
                       generate_quat_unions)
@@ -102,6 +103,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_matrix_projection_stub)
     add_stub(generate_matrix_transform_stub)
     add_stub(generate_quaternion_common_stub)
+    add_stub(generate_quaternion_trigonometric_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
