@@ -24,6 +24,7 @@ from matstub import (generate_mat_stub, generate_mat_typevars,
 from noisestub import generate_noise_stub
 from otherstub import generate_other_stub
 from packingstub import generate_packing_stub
+from quaternioncommonstub import generate_quaternion_common_stub
 from quaternionstub import generate_quaternion_stub
 from quaterniontype import get_quaternion_types
 from quatstub import (generate_quat_stub, generate_quat_typevars,
@@ -100,6 +101,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_matrix_clip_space_stub)
     add_stub(generate_matrix_projection_stub)
     add_stub(generate_matrix_transform_stub)
+    add_stub(generate_quaternion_common_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 

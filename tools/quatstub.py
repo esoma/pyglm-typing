@@ -47,9 +47,13 @@ def generate_quat_unions():
 def generate_quat_typevars():
     typevars = [
         ('_QT', get_quaternion_types()),
+        ('_NF32QT', get_quaternion_types(lambda q: not (q.data_type == 'f' and q.data_size == 32))),
     ]
-    return '\n'.join(f'''{name} = TypeVar('{name}', {', '.join(types)})''' for name, types in typevars) + '\n'
-
+    return '\n'.join(
+        f'''{name} = TypeVar('{name}', {', '.join(types) if len(types) > 1 else f'bound={types[0]}'})'''
+        for name, types in
+        ((n, list(ts)) for n, ts in typevars)
+    ) + '\n'
 
 def generate_quat_stub(name):
     quaternion = inspect_quaternion(name)
