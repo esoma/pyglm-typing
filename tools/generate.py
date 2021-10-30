@@ -3,6 +3,7 @@ from arraystub import generate_array_stub
 from colorspacestub import generate_color_space_stub
 from constantsstub import generate_constants_stub
 from ctypesstub import generate_ctypes_stub
+from decomposestub import generate_decompose_stub
 from epsilonstub import generate_epsilon_stub
 from funccommonstub import generate_func_common_stub
 from funcexponentialstub import generate_func_exponential_stub
@@ -104,6 +105,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_matrix_transform_stub)
     add_stub(generate_quaternion_common_stub)
     add_stub(generate_quaternion_trigonometric_stub)
+    add_stub(generate_decompose_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
