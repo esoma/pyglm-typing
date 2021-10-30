@@ -24,6 +24,7 @@ from matrixtype import get_matrix_types
 from matstub import (generate_mat_stub, generate_mat_typevars,
                      generate_mat_unions)
 from noisestub import generate_noise_stub
+from normstub import generate_norm_stub
 from otherstub import generate_other_stub
 from packingstub import generate_packing_stub
 from quaternioncommonstub import generate_quaternion_common_stub
@@ -108,6 +109,7 @@ with open('src/glm-stubs/__init__.pyi', 'w') as f:
     add_stub(generate_quaternion_trigonometric_stub)
     add_stub(generate_decompose_stub)
     add_stub(generate_matrix_transform_2d_stub)
+    add_stub(generate_norm_stub)
 
     f.write(f'__all__ = {sorted(set(names))!r}\n')
 
