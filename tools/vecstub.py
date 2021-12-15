@@ -7,7 +7,7 @@ __all__ = [
 ]
 
 import textwrap
-from itertools import product
+from itertools import combinations, permutations, product
 
 from stub import matrix_union, union, vector_union
 from vectortype import get_vector_types, inspect_vector
@@ -114,11 +114,25 @@ def generate_vec_stub(name):
         rows=4, columns=2
     )
 
+    components = _COMPONENT_NAMES[:vector.size]
+    swizzles = []
+    for i in range(2, vector.size + 1):
+        for c in combinations(components, i):
+            for cc in permutations(c):
+                swizzles.append(''.join(cc))
+
     return [name, *vector.aliases], textwrap.dedent(f"""{"".join(f'''
     {alias} = {name}''' for alias in vector.aliases)}
 
     class {name}:{''.join(f'''
-        {c}: {vector.python_type}''' for c in _COMPONENT_NAMES[:vector.size])}
+        {c}: {vector.python_type}''' for c in components)}
+
+        {''.join(f'''
+        @property
+        def {swizzle}(self) -> {vector.data_type}{vector.data_size}vec{len(swizzle)}: ...
+        @{swizzle}.setter
+        def {swizzle}(self, value: {vector_union(data_type=vector.data_type, data_size=vector.data_size, size=len(swizzle))}) -> None: ...
+        ''' for swizzle in swizzles)}
 
         @overload
         def __init__(self) -> None: ...{f'''
