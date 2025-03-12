@@ -3,9 +3,7 @@
 # https://github.com/esoma/pyglm-typing/
 
 from typing import SupportsFloat, SupportsInt, Tuple, Union
-
 import glm
-
 Number = Union[SupportsFloat, SupportsInt]
 B8Vector1 = Union[glm.bvec1, Tuple[Number]]
 B8Vec1 = glm.bvec1
